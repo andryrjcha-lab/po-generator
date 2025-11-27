@@ -40,7 +40,7 @@ button:hover {
   background: #005fcc;
 }
 
-/* A4 PAGE */
+/* PAGE */
 .po-paper {
   width: 210mm;
   min-height: 297mm;
@@ -57,7 +57,7 @@ button:hover {
 }
 
 .logo {
-  width: 60px;
+  width: 55px;
   height: auto;
   margin-bottom: 6px;
 }
@@ -91,6 +91,19 @@ button:hover {
   padding: 6px;
 }
 
+.delBtn {
+  background: #dc3545;
+  border: none;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 12px;
+}
+.delBtn:hover {
+  background: #b02a37;
+}
+
 .sign {
   width: 90px;
   height: auto;
@@ -99,6 +112,7 @@ button:hover {
 
 .footer-section {
   margin-top: 40px;
+  font-size: 13px;
 }
 
 /* PRINT */
