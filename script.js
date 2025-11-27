@@ -24,6 +24,7 @@ function renderItems() {
             <td><input class="itemInput" data-i="${i}" data-f="qty" value="${item.qty}"></td>
             <td><input class="itemInput" data-i="${i}" data-f="unit" value="${item.unit}"></td>
             <td><input class="itemInput" data-i="${i}" data-f="price" value="${item.price}"></td>
+            <td><button class="delBtn" onclick="deleteItem(${i})">❌</button></td>
         </tr>
         `;
     });
@@ -36,6 +37,13 @@ function renderItems() {
             updatePreview();
         });
     });
+
+    updatePreview();
+}
+
+function deleteItem(i) {
+    items.splice(i, 1);
+    renderItems();
 }
 
 function updatePreview() {
@@ -47,7 +55,7 @@ function updatePreview() {
     p_siteName.innerText = siteName.value;
     p_currency.innerText = currency.value;
 
-    const today = new Date().toLocaleDateString("id-ID");
+    let today = new Date().toLocaleDateString("id-ID");
     p_date.innerText = today;
     p_date2.innerText = today;
 
@@ -63,6 +71,7 @@ function updatePreview() {
             <td>${item.qty}</td>
             <td>${item.unit}</td>
             <td>${formatRupiah(item.price)}</td>
+            <td></td>
         </tr>
         `;
     });
