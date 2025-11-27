@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PO Generator (Layout A)</title>
+    <title>PO Generator (RDG)</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 
     <!-- HTML2PDF -->
@@ -14,21 +13,21 @@
 </head>
 <body>
 
-<h2 class="title">PO Generator (Layout A)</h2>
+<h2 class="title">PO Generator RDG</h2>
 
 <div class="form-container">
 
     <label>PO Number:</label>
-    <input type="text" id="poNo" placeholder="Contoh: IG25X/RDG/PA461">
+    <input type="text" id="poNo">
 
     <label>Kepada (Company):</label>
-    <input type="text" id="toCompany" placeholder="PT. Indomitra Global">
+    <input type="text" id="toCompany">
 
     <label>UP:</label>
-    <input type="text" id="toUP" placeholder="Nama PIC">
+    <input type="text" id="toUP">
 
     <label>Alamat:</label>
-    <textarea id="toAddress" placeholder="Alamat lengkap perusahaan"></textarea>
+    <textarea id="toAddress"></textarea>
 
     <label>Site ID:</label>
     <input type="text" id="siteId">
@@ -39,7 +38,7 @@
     <label>Currency:</label>
     <input type="text" id="currency" value="IDR">
 
-    <label>Upload Logo:</label>
+    <label>Upload Logo RDG:</label>
     <input type="file" id="logoUpload">
 
     <label>Upload Tanda Tangan:</label>
@@ -51,19 +50,14 @@
 <button onclick="updatePreview()">Update Preview</button>
 <button onclick="generatePDF()">Generate PDF</button>
 
-<!-- ==========================
-     A4 PREVIEW
-=========================== -->
 <div id="poPreview" class="po-paper">
 
-    <!-- HEADER -->
     <div class="header">
         <img id="logoImg" class="logo" src="logo rdg.jpg">
         <h1 class="company">PT. RDG DAYA GEMILANG</h1>
-        <div class="sub">KONTRAKTOR WORKCME</div>
+        <div class="sub">KONTRAKTOR WORK C M E</div>
     </div>
 
-    <!-- INFO ATAS -->
     <table class="top-info">
         <tr>
             <td>
@@ -79,7 +73,7 @@
         </tr>
     </table>
 
-    <h3 class="po-title">ORDER PEMBELIAN / PURCHASE ORDER</h3>
+    <h3 class="po-title">PURCHASE ORDER</h3>
 
     <table class="site-info">
         <tr>
@@ -88,36 +82,31 @@
         </tr>
     </table>
 
-    <!-- ITEMS TABLE -->
     <table class="items-table">
         <thead>
             <tr>
                 <th>No</th>
-                <th>Keterangan / Description</th>
+                <th>Keterangan</th>
                 <th>Material No</th>
-                <th>Jumlah</th>
+                <th>Qty</th>
                 <th>Satuan</th>
                 <th>Harga</th>
+                <th>Del</th>
             </tr>
         </thead>
         <tbody id="itemsBody"></tbody>
     </table>
 
-    <!-- FOOTER -->
     <div class="footer-section">
-        <div>Jakarta, <span id="p_date2"></span></div>
-        <br>
-        <div>PT. RDG DAYA GEMILANG</div>
-        <br><br>
-        <img id="signImg" class="sign">
-        <br>
+        Jakarta, <span id="p_date2"></span><br><br>
+        PT. RDG DAYA GEMILANG<br><br>
+
+        <img id="signImg" class="sign"><br>
         (Authorized Sign)
     </div>
 
 </div>
 
-<!-- SCRIPT -->
 <script src="script.js"></script>
-
 </body>
 </html>
