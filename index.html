@@ -1,214 +1,109 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PO Generator - RDG</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- html2pdf (jsPDF + html2canvas) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-  <div class="container">
 
-    <h1>PO Generator — PT. RDG DAYA GEMILANG</h1>
+  <h2 class="title">PO Generator (Layout A)</h2>
 
-    <div class="controls">
-      <label class="file-label">
-        Pilih / Upload Logo:
-        <input type="file" id="logoInput" accept="image/*" />
-      </label>
+  <div class="form-container">
+    <div>
+      <label>PO Number:</label>
+      <input type="text" id="poNo" placeholder="Contoh: IG25X/RDG/PA461">
 
-      <label class="file-label">
-        Upload Tanda Tangan (png/jpg, background transparan disarankan):
-        <input type="file" id="signInput" accept="image/*" />
-      </label>
+      <label>Kepada (Company):</label>
+      <input type="text" id="toCompany" placeholder="PT. Indomitra Global">
 
-      <div class="small-inputs">
-        <label>PO No:
-          <input id="poNo" value="IG/25/X/R/D-P/461" />
-        </label>
-        <label>Tanggal:
-          <input id="poDate" type="date" />
-        </label>
-      </div>
+      <label>UP:</label>
+      <input type="text" id="toUP" placeholder="Ima Ekawaty">
+
+      <label>Alamat:</label>
+      <textarea id="toAddress" placeholder="Jl. Sadar Raya No.12 ..."></textarea>
+
+      <label>Site ID:</label>
+      <input type="text" id="siteId">
+
+      <label>Site Name:</label>
+      <input type="text" id="siteName">
+
+      <label>Currency:</label>
+      <input type="text" id="currency" value="IDR">
+
+      <label>Upload Logo:</label>
+      <input type="file" id="logoUpload">
+
+      <label>Upload Tanda Tangan:</label>
+      <input type="file" id="signUpload">
+    </div>
+  </div>
+
+  <button onclick="addItem()">+ Tambah Item</button>
+  <button onclick="updatePreview()">Update Preview</button>
+  <button onclick="generatePDF()">Generate PDF</button>
+
+  <hr />
+
+  <div id="poPreview" class="po-paper">
+    <div class="header">
+      <img id="logoImg" class="logo" src="logo rdg.jpg">
+      <h1 class="company">PT. RDG DAYA GEMILANG</h1>
+      <div class="sub">KONTRAKTOR WORKCME</div>
     </div>
 
-    <div class="form-grid">
-      <div>
-        <label>Kepada / To:
-          <input id="toCompany" value="PT. Indomitra Global" />
-        </label>
-        <label>UP:
-          <input id="up" value="Ima Ekawaty" />
-        </label>
-        <label>Alamat:
-          <input id="address" value="Jl.Serdang Raya No.12 Kemayoran-Jakarta Pusat" />
-        </label>
-        <label>Email:
-          <input id="email" value="Indo.mitra@yahoo.co.id" />
-        </label>
-        <label>Telp:
-          <input id="phone" value="021-4267975/42886215" />
-        </label>
-      </div>
+    <table class="top-info">
+      <tr>
+        <td>
+          Kepada / To : <b id="p_toCompany"></b><br>
+          UP : <b id="p_toUP"></b><br>
+          Alamat : <span id="p_toAddress"></span>
+        </td>
+        <td>
+          PO No : <b id="p_poNo"></b><br>
+          Date : <span id="p_date"></span><br>
+          Currency : <span id="p_currency"></span>
+        </td>
+      </tr>
+    </table>
 
-      <div>
-        <label>Site ID:
-          <input id="siteId" value="ID-LA-17319" />
-        </label>
-        <label>Site Name:
-          <input id="siteName" value="GEDUNG_BANDAR_RAHAYU_CM" />
-        </label>
-        <label>Term of Payment:
-          <input id="term" value="Transfer within 1 days" />
-        </label>
-        <label>Currency:
-          <input id="currency" value="IDR" />
-        </label>
-      </div>
+    <h3 class="po-title">ORDER PEMBELIAN / PURCHASE ORDER</h3>
+
+    <table class="site-info">
+      <tr>
+        <td>Site ID: <b id="p_siteId"></b></td>
+        <td>Site Name: <b id="p_siteName"></b></td>
+      </tr>
+    </table>
+
+    <table class="items-table" id="itemsTable">
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Keterangan / Description</th>
+          <th>Material No</th>
+          <th>Jumlah</th>
+          <th>Satuan</th>
+          <th>Harga</th>
+        </tr>
+      </thead>
+      <tbody id="itemsBody"></tbody>
+    </table>
+
+    <div class="footer-section">
+      <div>Jakarta, <span id="p_date2"></span></div>
+      <div>PT. RDG DAYA GEMILANG</div>
+      <br><br><br>
+      <img id="signImg" class="sign">
+      <br>
+      (Authorized Sign)
     </div>
 
-    <hr />
-
-    <div class="items-controls">
-      <button id="addRowBtn">+ Tambah Item</button>
-      <button id="resetRowsBtn">Reset Items</button>
-    </div>
-
-    <div id="itemsWrap">
-      <table id="itemsTable">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Deskripsi / Description</th>
-            <th>Material No</th>
-            <th>Jumlah</th>
-            <th>Satuan</th>
-            <th>Harga Netto/unit</th>
-            <th>Total Harga</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
-        <tbody id="itemsBody">
-          <!-- row template diisi JS -->
-        </tbody>
-      </table>
-    </div>
-
-    <div class="summary-grid">
-      <div>
-        <label>Ketentuan Pengiriman / Terms:
-          <input id="termsDelivery" value="Delivery Note and Original Purchase Order shall be attached upon invoicing process" />
-        </label>
-        <label>Payment Bank & Account:
-          <textarea id="bankInfo">BNI Cabang Kramat, Jakarta
-Account no : 0010558305 , Beneficiary : PT. Indomitra Global</textarea>
-        </label>
-      </div>
-
-      <div class="totals">
-        <div><span>Subtotal</span><span id="subtotalText">0</span></div>
-        <div><span>Diskon</span><span id="discountText">0</span></div>
-        <div><span>PPN (11%)</span><span id="taxText">0</span></div>
-        <div class="grand"><span>Total (Netto)</span><span id="grandText">0</span></div>
-        <label>Terbilang:
-          <input id="terbilang" readonly />
-        </label>
-      </div>
-    </div>
-
-    <div class="actions">
-      <button id="previewBtn">Preview di Halaman</button>
-      <button id="generatePdfBtn">Generate PDF (A4)</button>
-    </div>
-
-    <hr />
-
-    <h2>Preview / Hasil (akan di-export ke PDF)</h2>
-
-    <div id="poPreview" class="po-paper">
-      <!-- header -->
-      <div class="po-header">
-        <img id="logoPreview" src="logo rdg.jpg" alt="Logo" />
-        <div class="company-name">
-          <div class="company-title">PT. RDG DAYA GEMILANG</div>
-        </div>
-      </div>
-
-      <div class="po-meta">
-        <div class="left">
-          <div><strong>Kepada / To :</strong> <span id="p_toCompany"></span></div>
-          <div><strong>UP :</strong> <span id="p_up"></span></div>
-          <div><strong>Alamat :</strong> <span id="p_address"></span></div>
-        </div>
-        <div class="right">
-          <div><strong>PO.No :</strong> <span id="p_poNo"></span></div>
-          <div><strong>Date :</strong> <span id="p_poDate"></span></div>
-          <div><strong>Currency :</strong> <span id="p_currency"></span></div>
-        </div>
-      </div>
-
-      <h3 class="center">ORDER PEMBELIAN / PURCHASE ORDER</h3>
-
-      <div class="site-info">
-        <div><strong>Site ID:</strong> <span id="p_siteId"></span></div>
-        <div><strong>Site Name:</strong> <span id="p_siteName"></span></div>
-      </div>
-
-      <table class="po-table">
-        <thead>
-          <tr>
-            <th>No</th>
-            <th>Keterangan / Description</th>
-            <th>Material No</th>
-            <th>Jumlah</th>
-            <th>Satuan</th>
-            <th>Harga Netto/unit</th>
-            <th>Total Harga</th>
-          </tr>
-        </thead>
-        <tbody id="p_itemsBody">
-          <!-- isi dengan JS -->
-        </tbody>
-      </table>
-
-      <div class="po-summary">
-        <div class="left-note">
-          <div><strong>Ketentuan Pengiriman:</strong></div>
-          <div id="p_termsDelivery"></div>
-          <div style="margin-top:8px"><strong>Payment Info:</strong></div>
-          <div id="p_bankInfo"></div>
-        </div>
-
-        <div class="right-total">
-          <div><span>Subtotal</span><span id="p_subtotal">0</span></div>
-          <div><span>Diskon</span><span id="p_discount">0</span></div>
-          <div><span>PPN (11%)</span><span id="p_tax">0</span></div>
-          <div class="grand"><span>Total</span><span id="p_grand">0</span></div>
-          <div style="margin-top:10px"><strong>Terbilang</strong></div>
-          <div id="p_terbilang"></div>
-        </div>
-      </div>
-
-      <div class="po-footer">
-        <div class="sign">
-          <div>Authorized Signature</div>
-
-          <div style="margin-top:8px"><strong>Cam Herry Aryanto</strong></div>
-          <div>Direktur</div>
-        </div>
-
-        <div class="note">
-          <div><strong>Noted & Special Instruction</strong></div>
-          <div id="p_note">APD TERLAMPIR</div>
-        </div>
-      </div>
-
-    </div> <!-- end poPreview -->
-
-  </div> <!-- container -->
+  </div>
 
   <script src="script.js"></script>
+
 </body>
 </html>
