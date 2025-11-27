@@ -1,130 +1,82 @@
-/* RESET */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
-  background: #e9ecef;
+  background: #f2f2f2;
+  margin: 0;
+  padding: 20px;
   font-family: Arial, sans-serif;
-  padding: 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* ===============================
-      FORM AREA
-================================*/
-.title {
-  margin-bottom: 15px;
-  font-size: 22px;
-  font-weight: bold;
-}
-
+/* FORM */
 .form-container {
-  background: white;
   width: 100%;
-  max-width: 1100px;
+  max-width: 1000px;
+  background: white;
   padding: 20px;
   border-radius: 6px;
-  margin-bottom: 15px;
+  margin-bottom: 20px;
 }
 
-.form-container input,
+.form-container input, 
 .form-container textarea {
   width: 100%;
-  padding: 7px;
-  margin-bottom: 8px;
+  padding: 8px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-/* ===============================
-      BUTTONS
-================================*/
 button {
-  padding: 10px 18px;
-  margin: 4px;
-  background: #0d6efd;
+  padding: 10px 16px;
+  margin: 5px;
+  background: #007bff;
   border: none;
   color: white;
   border-radius: 4px;
   cursor: pointer;
 }
-
 button:hover {
-  background: #0b5ed7;
+  background: #005fcc;
 }
 
-/* ===============================
-      A4 PAPER PREVIEW
-================================*/
+/* A4 PAGE */
 .po-paper {
   width: 210mm;
   min-height: 297mm;
   background: white;
-  padding: 15mm;
-  margin: 20px auto;
   border: 1px solid #ccc;
-  display: block;
-  position: relative;
+  margin: 20px auto;
+  padding: 15mm;
+  box-sizing: border-box;
 }
 
-/* Center preview */
-#poPreview {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-/* ===============================
-      HEADER + LOGO
-================================*/
 .header {
   text-align: center;
-  width: 100%;
+  margin-bottom: 15px;
 }
 
 .logo {
-  width: 40mm;       /* ukuran fix seperti di PDF */
-  max-width: 40mm;   /* tidak boleh lebih besar */
-  height: auto;      /* proporsional */
-  display: block;
-  margin: 0 auto 5mm auto; /* center */
+  width: 60px;
+  height: auto;
+  margin-bottom: 6px;
 }
 
 .company {
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
 }
 
 .sub {
   font-size: 12px;
-  margin-bottom: 15px;
-}
-
-/* ===============================
-      TABLES + CONTENT
-================================*/
-.top-info,
-.site-info {
-  width: 100%;
-  font-size: 13px;
   margin-bottom: 10px;
 }
 
-.top-info td,
-.site-info td {
-  vertical-align: top;
-  padding: 4px;
-}
-
-.po-title {
-  text-align: center;
-  font-size: 16px;
-  margin: 8px 0 12px;
+/* TABLES */
+.top-info, .site-info {
+  width: 100%;
+  font-size: 13px;
+  margin-top: 10px;
 }
 
 .items-table {
@@ -134,36 +86,25 @@ button:hover {
   margin-top: 10px;
 }
 
-.items-table th,
-.items-table td {
+.items-table th, .items-table td {
   border: 1px solid black;
   padding: 6px;
-}
-
-/* ===============================
-      FOOTER + SIGNATURE
-================================*/
-.footer-section {
-  margin-top: 40px;
-  font-size: 13px;
 }
 
 .sign {
   width: 90px;
   height: auto;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
-/* ===============================
-      PRINT MODE
-================================*/
+.footer-section {
+  margin-top: 40px;
+}
+
+/* PRINT */
 @media print {
-  body * {
-    visibility: hidden;
-  }
-  #poPreview, #poPreview * {
-    visibility: visible;
-  }
+  body * { visibility: hidden; }
+  #poPreview, #poPreview * { visibility: visible; }
   #poPreview {
     position: absolute;
     left: 0;
