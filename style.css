@@ -1,0 +1,83 @@
+:root{
+  --paper-width: 794px; /* approximate A4@96dpi width */
+  --accent: #0b3d91;
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#f4f6f7;
+  margin:18px;
+  color:#111;
+}
+
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:18px;
+  background:#fff;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+
+h1{font-size:20px;text-align:center;margin-bottom:12px}
+.controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+.file-label input{display:block;margin-top:6px}
+.small-inputs label{display:inline-block;margin-right:8px}
+.form-grid{display:flex;gap:18px;justify-content:space-between}
+.form-grid label{display:block;margin-bottom:6px}
+.items-controls{margin:12px 0}
+#itemsTable{width:100%;border-collapse:collapse}
+#itemsTable th,#itemsTable td{border:1px solid #ddd;padding:6px;font-size:13px}
+#itemsTable th{background:#fafafa}
+.summary-grid{display:flex;gap:18px;margin-top:12px}
+.summary-grid .totals{margin-left:auto;min-width:260px;border:1px solid #eee;padding:12px;background:#fafafa}
+.summary-grid .totals div{display:flex;justify-content:space-between;padding:4px 0}
+.summary-grid .totals .grand{font-weight:700;font-size:16px;border-top:1px solid #ddd;padding-top:8px;margin-top:8px}
+.actions{margin-top:12px}
+.actions button{margin-right:8px;padding:8px 12px}
+
+/* PREVIEW PAPER */
+.po-paper{
+  width:var(--paper-width);
+  padding:22px;
+  background:white;
+  margin:18px 0 60px;
+  border:1px solid #ccc;
+  box-shadow:0 1px 6px rgba(0,0,0,0.08);
+  box-sizing:border-box;
+}
+
+.po-header{display:flex;flex-direction:column;align-items:center;gap:6px}
+.po-header img{max-width:160px;height:auto;display:block}
+.company-name .company-title{font-weight:800;font-size:22px;letter-spacing:1px}
+.company-name .company-sub{font-size:12px;color:#333}
+
+.po-meta{display:flex;justify-content:space-between;margin-top:12px}
+.po-meta .left, .po-meta .right{width:48%}
+.center{text-align:center}
+.site-info{margin:12px 0}
+
+.po-table{width:100%;border-collapse:collapse;margin-top:8px;font-size:13px}
+.po-table th, .po-table td{border:1px solid #bbb;padding:6px}
+.po-table th{background:#efefef}
+
+.po-summary{display:flex;justify-content:space-between;margin-top:12px}
+.left-note{width:60%}
+.right-total{width:36%;border:1px solid #ddd;padding:8px;background:#fafafa}
+.right-total div{display:flex;justify-content:space-between;padding:6px 0}
+.right-total .grand{font-weight:800}
+
+.po-footer{display:flex;justify-content:space-between;margin-top:28px}
+.po-footer .sign{width:40%}
+.po-footer .note{width:40%}
+
+/* finer control to mimic PDF spacing */
+.po-paper .po-meta div{line-height:1.4}
+.po-paper .po-table td, .po-paper .po-table th{padding:8px 6px}
+.po-paper .company-title{font-size:24px;letter-spacing:1px}
+.po-paper h3.center{margin:12px 0;font-size:16px}
+
+/* responsive */
+@media print{
+  body{background:white}
+  .container{box-shadow:none}
+}
