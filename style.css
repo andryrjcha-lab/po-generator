@@ -88,8 +88,11 @@ button:hover {
 }
 
 .logo {
-  width: 20px;
-  margin-bottom: 8px;
+  width: 40mm;       /* ukuran fix seperti di PDF */
+  max-width: 40mm;   /* tidak boleh lebih besar */
+  height: auto;      /* proporsional */
+  display: block;
+  margin: 0 auto 5mm auto; /* center */
 }
 
 .company {
